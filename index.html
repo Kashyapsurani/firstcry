@@ -4,24 +4,95 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>firstcry-clone</title>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
     <link rel="stylesheet" href="all.css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- Demo styles -->
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 80%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .autoplay-progress {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--swiper-theme-color);
+    }
+
+    .autoplay-progress svg {
+      --progress: 0;
+      position: absolute;
+      left: 0;
+      top: 0px;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      stroke-width: 4px;
+      stroke: var(--swiper-theme-color);
+      fill: none;
+      stroke-dashoffset: calc(125.6 * (1 - var(--progress)));
+      stroke-dasharray: 125.6;
+      transform: rotate(-90deg);
+    }
+  </style>
   </head>
   <body>
-    <nav class="navbar" width="100%">
-      <div class="first" width="100%">
-      <div class="img" >
-        <img
+    
+    <link rel="shortcut icon" href="data:image/png;base64,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" type="image/x-icon">
+    <nav class="navbar">
+      <div class="img">
+        <a href="index.html"><img
           src="https://cdn.fcglcdn.com/brainbees/images/n/fc_logo.png"
           alt="firstcry"
-          
+         
         />
+      </a>
       </div>
-      <div class="hide">
       <div class="scr">
         <button>
           <span class="material-symbols-outlined" height="100%" width="100%">
@@ -39,31 +110,27 @@
       <div class="location">
         <img src="/logo/icons8-location-24 (1).png" alt="" /> Select location|
       </div>
-      <div class="stores" width="100%">stores & Preschools|</div>
+      <div class="stores">stores & Preschools|</div>
       <div class="Support">Support|</div>
       <div class="Track Order">Track Order|</div>
-      <div class="FirstCry Parenting">FirstCrLy Parenting|</div>
-      <a href="login.html"
-        ><div class="Login / Register">Login / Register|</div></a
-      >
-</div>
-      
+      <div class="FirstCry Parenting">FirstCry Parenting|</div>
+      <a href="login.html"><div class="Login / Register">Login / Register|</div></a>
+      <div class="Shortlist">
+        
       <div class="cart">
         <img
           src="https://static.vecteezy.com/system/resources/thumbnails/004/798/846/small/shopping-cart-logo-or-icon-design-vector.jpg"
           alt="cart"
-          height="99px"
+          height="100px"
         />
         <p>cart</p>
       </div>
-     </div>
-     </nav>
-     <div class="CATEGORIES"  >
-      <div class="ITEM" >ALL CATEGORIESBOY</div>
+    </nav>
+    <div class="CATEGORIES">
+      <a href="index.html"><div class="ITEM">ALL CATEGORIESBOY</div></a>
       <a href="boy.html"><div class="item">BOY FASHION</div></a>
-      
       <a href="footwer.html"><div class="item">FOOTWEAR</div></a>
-      <a href="toy.html"><div class="item">TOYS</div></a> 
+      <a href="toy.html"><div class="item">TOYS</div></a>
       <div class="item">
         <img
           src="
@@ -72,18 +139,36 @@
         />
       </div>
       <div class="item">
-        <center><img
+        <img
           src="https://cdn.fcglcdn.com/brainbees/banners/FC-menu-carters-logo.webp"
           alt=""
-        height="49px"/></center>
+        />
+      </div>
+      
+    </div>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/hp_mktg_p01_prim1_buy3_desktop1707373465117.webp" alt=""></div>
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/hp_mktg_p12_footwear_desktop1706508394251.webp" alt=""></div>
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/hp_mktg_p01_flash1_rush_desktop1706696807161.png" alt=""></div>
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/arias_hp_mkt_po3_all_6_arias1707283506371.webp" alt=""></div>
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/mktng_nonapps_base_spring_hp_9febuary241707381114815.webp" alt=""></div>
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/hp1707374061848.webp" alt=""></div>
+        <div class="swiper-slide"><img src="https://cdn.fcglcdn.com/brainbees/banners/mktng_nonapps_base_bs_hp_9febuary241707399907725.webp" alt=""></div>
+      
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+      <div class="autoplay-progress">
+        <svg viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="20"></circle>
+        </svg>
+        <span></span>
       </div>
     </div>
-<center>
-    <center>
-      <img
-        src="https://cdn.fcglcdn.com/brainbees/banners/hp_mktg_p01_prim4_flat50_desktop1705323674139.webp"
-       id="i" width="100%"/>
-    </center>
+    
+      
     
     <div class="imgmain">
       <div>
@@ -95,7 +180,7 @@
       </div>
 
       <div>
-        <img
+        <img        
           class="imgs"
           src="https://cdn.fcglcdn.com/brainbees/images/boutique/670x670/32175.webp"
           alt=""
@@ -254,7 +339,7 @@
       <div class="scr2s">
      
   
-<a
+        <a
         href="https://www.firstcry.com/topoffers?moid=40077@~22@~3429~12746@@@@@@@@@1@0@20@@@@@@@@&ref2=Desktop_1866_MerchF_MOAS23Winter_Desktop_EssentialStore_WollenCaps_120423"
         ><img
           src="https://cdn.fcglcdn.com/brainbees/images/cattemplate/moas_desktop_08122023_37.jpg"
@@ -357,6 +442,34 @@
   </center>
 
 
-  
+       
+       
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const progressCircle = document.querySelector(".autoplay-progress svg");
+    const progressContent = document.querySelector(".autoplay-progress span");
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      },
+      on: {
+        autoplayTimeLeft(s, time, progress) {
+          progressCircle.style.setProperty("--progress", 1 - progress);
+          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+        }
+      }
+    });
+  </script>
   </body>
 </html>
